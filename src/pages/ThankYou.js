@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../custom.scss";
 
 const ThankYou = () => {
+ 
   return (
     <>
       <div className="thank-you-page">
