@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "../custom.scss";
 
@@ -14,6 +14,15 @@ const Question = (props) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const token = Object.fromEntries(urlSearchParams.entries());
   console.log("token",token)
+
+  useEffect(()=>{
+    if(!token.token)
+    {
+      window.close()
+      window.open('https://apiv2.paymeindia.in/close','_self');
+    }
+   
+  })
 
   var questions = [
     {
@@ -70,7 +79,7 @@ const Question = (props) => {
      let req = {
        "answer_json":data
      }
-    let url = "https://api.testing.paymeindia.in/api/feature_research/answer/";
+    let url = "https://api.paymeindia.in/api/feature_research/answer/";
 
     let config = {
       headers: {

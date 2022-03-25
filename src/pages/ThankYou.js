@@ -13,8 +13,8 @@ const ThankYou = (props) => {
       </div>
       <button  className="button_exit" onClick={()=>{
        
-        window.open('','_self');
-        window.close();
+        window.open('https://apiv2.paymeindia.in/close','_self');
+       
       }} >Exit</button>
       <div className='para'>Take part in future survey </div>
       </div>
