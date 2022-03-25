@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import Question from './pages/Question';
 import ThankYou from './pages/ThankYou';
 
