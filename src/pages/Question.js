@@ -1,26 +1,19 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "../custom.scss";
+import ThankYou from "./ThankYou";
 var array =[]
 const Question = (props) => {
   const [indexid, setIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [qa, setQa] = useState({});
  
-  
-
+ 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const token = Object.fromEntries(urlSearchParams.entries());
 
 
-  useEffect(()=>{
-    if(!token.token)
-    {
-      window.close()
-      window.open('https://apiv2.paymeindia.in/close','_self');
-    }
-   
-  })
+ 
 
   var questions = [
     {
@@ -80,7 +73,7 @@ const Question = (props) => {
      let req = {
        "answer_json":array
      }
-    let url = "https://api.paymeindia.in/api/feature_research/answer/";
+    let url = "https://api.testing.paymeindia.in/api/feature_research/answer/";
 
     let config = {
       headers: {
@@ -93,9 +86,7 @@ const Question = (props) => {
     axios
       .post(url,req, config)
       .then((res) => {
-        if (indexid === 9) {
-          props.history.push("/thank-you");
-        } 
+       
        
       })
       .catch((err) => {
@@ -107,10 +98,12 @@ const Question = (props) => {
   return (
     <>
       <div className="question-page">
-        <div>
+        {indexid === 10 ? <ThankYou {...props}/> :
+       (
+          <div>
           <div
             className="question"
-            style={{ color: "#414750", fontWeight: "500",lineHeight:"22px" }}
+            style={{ color: "#414750", fontWeight: "500",lineHeight:"23px" }}
           >
             {questions[indexid].question}
           </div>
@@ -173,6 +166,7 @@ const Question = (props) => {
             </button>
           </div>
         </div>
+       )}
       </div>
     </>
   );
