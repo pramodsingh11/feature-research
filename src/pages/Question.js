@@ -73,7 +73,7 @@ const Question = (props) => {
      let req = {
        "answer_json":array
      }
-    let url = "https://api.paymeindia.in/api/feature_research/answer/";
+    let url = "https://api.testing.paymeindia.in/api/feature_research/answer/";
 
     let config = {
       headers: {
