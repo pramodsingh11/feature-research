@@ -145,7 +145,7 @@ const Question = (props) => {
                     }}
                     checked={answer === option.option ? true : false}
                   />
-                  <div style={{ marginTop: "10px",marginLeft:"7px" }}>{option.option}</div>
+                  <div style={{ marginTop: "10px",marginLeft:"7px" ,textAlign:"left" }}>{option.option}</div>
                 </div>
               </div>
             );
