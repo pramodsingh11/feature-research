@@ -12,8 +12,8 @@ export const Routes = () => {
     return (
         
             <Switch>
-                <Route exact path="/" component={Home}/>
-               <Route exact path="/questions" component={Question}/>
+                {/* <Route exact path="/" component={Home}/> */}
+               <Route exact path="/" component={Question}/>
                <Route exact path="/thank-you" component={ThankYou}/>
             </Switch>
         

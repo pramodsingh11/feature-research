@@ -1,181 +1,173 @@
-import { React, useState } from "react";
-import '../custom.scss'
+import { React, useEffect, useState } from "react";
+import axios from "axios";
+import "../custom.scss";
+var array =[]
 const Question = (props) => {
-  const [index, setIndex] = useState(0);
-  const ThankYou = () => {
-    props.history.push("/thank-you");
-  };
-  console.log("aaaa", index);
+  const [indexid, setIndex] = useState(0);
+  const [answer, setAnswer] = useState("");
+  const [qa, setQa] = useState({});
+ 
+  
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const token = Object.fromEntries(urlSearchParams.entries());
+
+
+  useEffect(()=>{
+    if(!token.token)
+    {
+      window.close()
+      window.open('https://apiv2.paymeindia.in/close','_self');
+    }
+   
+  })
 
   var questions = [
     {
       question:
-        "1Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "1 I would like to ..." },
-        { option: "1 I expect this  ..." },
-        { option: "1 I dont care about this ..." },
-        { option: "1 I would like to ..." },
-        { option: "1 I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if you could use fingerprint to lock/unlock Payme?",
     },
     {
       question:
-        " 2Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "2I would like to ..." },
-        { option: "2I expect this  ..." },
-        { option: "2I dont care about this ..." },
-        { option: "2I would like to ..." },
-        { option: "2I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if you could have a chatbot to solve your queries?",
     },
     {
       question:
-        "3Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "3I would like to ..." },
-        { option: "3I expect this  ..." },
-        { option: "3I dont care about this ..." },
-        { option: "3I would like to ..." },
-        { option: "3I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if we provided you rewards if you pay loans on time?",
     },
     {
       question:
-        "4Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if you get amazing rewards every time you refer PayMe App to friends/family?",
     },
     {
       question:
-        " 5Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would you like if you could access salary advance from your company through PayMe?",
     },
     {
       question:
-        " 6Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if you could not use fingerprint to lock/unlock Payme?",
     },
     {
       question:
-        " 7Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if you could not have a chatbot to solve your queries?",
     },
     {
       question:
-        " 8Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would you feel if we did not provide you rewards if you pay loans on time?",
+    },
+    {
+      question: "How would you feel if you don't get any rewards on referral?",
     },
     {
       question:
-        " 9Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
-    },
-    {
-      question:
-        " 10Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
-    },
-    {
-      question:
-        " 11Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
-    },
-    {
-      question:
-        " 12Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-      options: [
-        { option: "4I would like to ..." },
-        { option: "4I expect this  ..." },
-        { option: "4I dont care about this ..." },
-        { option: "4I would like to ..." },
-        { option: "4I would not happy it this would not happen ..." },
-      ],
+        "How would feel if you could not get salary advance from your company through PayMe?",
     },
   ];
+  var options = [
+    { option: "I would love this" },
+    { option: "I expect this" },
+    { option: "I don't care about this" },
+    { option: "It is okay if this is not present" },
+    { option: "I would not be happy if this is not present" },
+  ];
+
+ 
+
+  const handleAnswers = () => {
+    
+    array.push(qa)
+  
+     let req = {
+       "answer_json":array
+     }
+    let url = "https://api.paymeindia.in/api/feature_research/answer/";
+
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + token.token,
+      },
+    };
+
+
+    axios
+      .post(url,req, config)
+      .then((res) => {
+        if (indexid === 9) {
+          props.history.push("/thank-you");
+        } 
+       
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err)
+      });
+  };
+
   return (
     <>
       <div className="question-page">
         <div>
-          <div className="question" style={{color:"#414750",fontWeight:"500"}}>{questions[index].question}</div>
+          <div
+            className="question"
+            style={{ color: "#414750", fontWeight: "500",lineHeight:"22px" }}
+          >
+            {questions[indexid].question}
+          </div>
 
-          {questions[index].options.map((option, index) => {
-            console.log("index", index, option);
+          {options.map((option, index) => {
             return (
-
               <div key={index} className="options">
-                <div style={{display:"flex",padding:"15px",paddingLeft:"30px",paddingRight:"10px"}}>
-                <input
-                  style={{ fontSize: "10px", zoom: "110%" ,marginTop:"10px"}}
-                  type="checkbox"
-                  name="option"
-                  value="option"
-                />
-                  <div style={{marginTop:"10px"}}>{option.option}</div>
-</div>
-              
+                <div
+                  style={{
+                    display: "flex",
+                    padding: "15px",
+                    paddingLeft: "30px",
+                    paddingRight: "10px",
+                  }}
+                >
+                  <input
+                    style={{
+                      fontSize: "10px",
+                      zoom: "110%",
+                      marginTop: "10px",
+                    }}
+                    type="radio"
+                    name="answer"
+                    value={option.option}
+                    onChange={(e) => {
+                     
+                      if (answer === option.option) { 
+                        setAnswer("");
+                      } else {
+                        setAnswer(e.target.value);
+                       let temp = {
+                         "question":questions[indexid].question,
+                         "answer":e.target.value
+                       }
+                      
+                       setQa(temp)
+                     
+                      }
+                    }}
+                    checked={answer === option.option ? true : false}
+                  />
+                  <div style={{ marginTop: "10px",marginLeft:"7px" }}>{option.option}</div>
+                </div>
               </div>
             );
           })}
           <div>
+
             <button
-             className="button_next"
+              className="button_next"
               onClick={() => {
-                if (index < 11) {
-                  setIndex((prev) => index + 1);
-                } else {
-                  ThankYou();
-                }
+                setIndex((prev) => indexid + 1);
+                setAnswer("");
+                setQa("");
+                handleAnswers()
               }}
-             
+              disabled={answer==="" ? true :false}
             >
               Next
             </button>
