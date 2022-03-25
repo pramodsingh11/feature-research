@@ -1,19 +1,17 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "../custom.scss";
-
+var array =[]
 const Question = (props) => {
   const [indexid, setIndex] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [qa, setQa] = useState("");
-  const [data, setData] = useState([]);
-  const ThankYou = () => {
-    props.history.push("/thank-you");
-  };
+  const [qa, setQa] = useState({});
+ 
+  
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const token = Object.fromEntries(urlSearchParams.entries());
-  console.log("token",token)
+
 
   useEffect(()=>{
     if(!token.token)
@@ -73,11 +71,14 @@ const Question = (props) => {
     { option: "I would not be happy if this is not present" },
   ];
 
+ 
 
   const handleAnswers = () => {
-   
+    
+    array.push(qa)
+  
      let req = {
-       "answer_json":data
+       "answer_json":array
      }
     let url = "https://api.paymeindia.in/api/feature_research/answer/";
 
@@ -87,15 +88,19 @@ const Question = (props) => {
         Authorization: "Token " + token.token,
       },
     };
-    console.log("req", req);
+
 
     axios
       .post(url,req, config)
       .then((res) => {
-        console.log("answerjson", req);
+        if (indexid === 9) {
+          props.history.push("/thank-you");
+        } 
+       
       })
       .catch((err) => {
         console.log(err);
+        alert(err)
       });
   };
 
@@ -105,7 +110,7 @@ const Question = (props) => {
         <div>
           <div
             className="question"
-            style={{ color: "#414750", fontWeight: "500" }}
+            style={{ color: "#414750", fontWeight: "500",lineHeight:"22px" }}
           >
             {questions[indexid].question}
           </div>
@@ -127,14 +132,12 @@ const Question = (props) => {
                       zoom: "110%",
                       marginTop: "10px",
                     }}
-                    type="checkbox"
+                    type="radio"
                     name="answer"
                     value={option.option}
                     onChange={(e) => {
-                      if (answer === e.target.value) {
-                        var array = data;
-                        array.splice(indexid,1) 
-                        
+                     
+                      if (answer === option.option) { 
                         setAnswer("");
                       } else {
                         setAnswer(e.target.value);
@@ -142,13 +145,14 @@ const Question = (props) => {
                          "question":questions[indexid].question,
                          "answer":e.target.value
                        }
-                       setData((prevState)=>([...prevState,temp]))
-                       console.log("data",data)
+                      
+                       setQa(temp)
+                     
                       }
                     }}
-                    checked={answer === option.option}
+                    checked={answer === option.option ? true : false}
                   />
-                  <div style={{ marginTop: "10px" }}>{option.option}</div>
+                  <div style={{ marginTop: "10px",marginLeft:"7px" }}>{option.option}</div>
                 </div>
               </div>
             );
@@ -158,14 +162,10 @@ const Question = (props) => {
             <button
               className="button_next"
               onClick={() => {
+                setIndex((prev) => indexid + 1);
                 setAnswer("");
                 setQa("");
-                if (indexid < 9) {
-                  setIndex((prev) => indexid + 1);
-                  handleAnswers();
-                } else {
-                  ThankYou();
-                }
+                handleAnswers()
               }}
               disabled={answer==="" ? true :false}
             >
